@@ -1,4 +1,4 @@
-package com.NoelWesley.repo
+package com.NoelWesley.stocksapp.repo
 
 import android.adservices.measurement.WebSourceRegistrationRequest
 import android.content.Context
