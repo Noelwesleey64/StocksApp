@@ -1,7 +1,7 @@
-package com.NoelWesley.stocksapp.domain
+package com.NoelWesley.stocksapp.registration.domain
 
 import android.content.Context
-import com.NoelWesley.stocksapp.repo.RegistrationRepository
+import com.NoelWesley.stocksapp.registration.repo.RegistrationRepository
 import java.time.LocalDateTime
 import javax.inject.Inject
 

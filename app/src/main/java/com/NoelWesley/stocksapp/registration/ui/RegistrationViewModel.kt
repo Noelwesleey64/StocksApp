@@ -2,7 +2,7 @@ package com.NoelWesley.stocksapp.registration.ui
 
 import android.content.Context
 import androidx.lifecycle.ViewModel
-import com.NoelWesley.stocksapp.repo.RegistrationRepository
+import com.NoelWesley.stocksapp.registration.repo.RegistrationRepository
 import com.NoelWesley.stocksapp.registration.model.request.RegisterRequest
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
