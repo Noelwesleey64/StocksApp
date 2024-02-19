@@ -80,6 +80,8 @@ dependencies {
 
     val lifecycle_version = "2.6.2"
     val arch_version = "2.2.0"
+    val nav_version = "2.7.6"
+    val compose_version = "1.5.0"
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel:$lifecycle_version")
@@ -97,6 +99,13 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.8.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation ("com.squareup.retrofit2:converter-scalars:2.9.0")
+    implementation("androidx.navigation:navigation-compose:$nav_version")
+    implementation ("androidx.activity:activity-compose:1.7.2")
+    implementation ("androidx.compose.material:material:1.4.2")
+    implementation("androidx.compose.runtime:runtime-livedata:$compose_version")
+    implementation ("androidx.datastore:datastore-preferences:1.0.0")
+    implementation("io.coil-kt:coil:2.5.0")
+
 
 
 }
