@@ -10,4 +10,6 @@ sealed class NavItem(
 
     object MainScreen: NavItem("main")
 
+    object ProductScreen: NavItem("product/{productId}")
+
 }

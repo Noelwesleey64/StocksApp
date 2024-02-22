@@ -3,6 +3,7 @@ package com.NoelWesley.stocksapp.di
 import com.NoelWesley.stocksapp.screens.account_screen.data.remote.AccountApi
 import com.NoelWesley.stocksapp.screens.home_screen.data.remote.HomeScreenApi
 import com.NoelWesley.stocksapp.screens.login.data.remote.LoginApi
+import com.NoelWesley.stocksapp.screens.product_screen.data.remote.ProductApi
 import com.NoelWesley.stocksapp.screens.registration.data.remote.RegistrationApi
 import com.NoelWesley.stocksapp.util.Constants.Companion.BASE_URL
 import dagger.Module
@@ -75,6 +76,17 @@ object RetrofitModule {
     // which is an interface that defines the API endpoints for HomeScreen.
     fun providesHomeScreenApi(retrofit: Retrofit): HomeScreenApi{
         return retrofit.create(HomeScreenApi::class.java)
+    }
+
+    // @Singleton annotation indicates that there will be a single instance of the provided object in the application.
+    @Singleton
+    // @Provides annotation tells Dagger that the following function is going to define a dependency.
+    @Provides
+    // Function definition that provides a ProductApi instance.
+    // The Retrofit object is passed as a parameter, which is used to create the API implementation.
+    fun providesProductApi(retrofit: Retrofit): ProductApi {
+        //The Retrofit instance creates and returns the implementation of the ProductApi interface.
+        return retrofit.create(ProductApi::class.java)
     }
 
 

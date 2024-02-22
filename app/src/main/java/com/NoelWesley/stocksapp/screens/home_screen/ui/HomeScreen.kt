@@ -4,6 +4,7 @@ import android.widget.Button
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -56,16 +57,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.NoelWesley.stocksapp.R
 import com.NoelWesley.stocksapp.screens.home_screen.data.remote.model.AllProductsModel
 import com.NoelWesley.stocksapp.screens.home_screen.data.remote.model.ProductImageModel
 import com.NoelWesley.stocksapp.screens.home_screen.data.remote.model.ProductsOnCategoryModel
 import com.NoelWesley.stocksapp.util.Constants
+import com.NoelWesley.stocksapp.util.NavItem
 import com.NoelWesley.stocksapp.util.UsernamePreferenceDatastore
 
 @Composable
-fun HomeScreen(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
+fun HomeScreen(homeScreenViewModel: HomeScreenViewModel = hiltViewModel(), navController: NavController){
 
     // Declare a local variable named context and assign it the value of the current context
     // The context is an object that provides access to system services and resources
@@ -82,7 +85,7 @@ fun HomeScreen(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
     val allproducts by homeScreenViewModel.allProducts.collectAsState()
 
 
-    MainSection()
+    MainSection(navController =navController)
 
 
 }
@@ -265,9 +268,10 @@ fun CategoriesRowRoundBox(
     }
 
 @Composable
-fun ProductOnCategorySectionTemplate(productsOnCategory: ProductsOnCategoryModel, homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
+fun ProductOnCategorySectionTemplate(productsOnCategory: ProductsOnCategoryModel, homeScreenViewModel: HomeScreenViewModel = hiltViewModel(), navController: NavController){
 
-    //Create a variable to hold the price of our product
+    val productId = productsOnCategory.productId
+          //Create a variable to hold the price of our product
     val price = productsOnCategory.price
 
     //Create a variable to hold the minimum Order of our product
@@ -294,6 +298,8 @@ fun ProductOnCategorySectionTemplate(productsOnCategory: ProductsOnCategoryModel
             .background(MaterialTheme.colorScheme.background)
             .fillMaxWidth()
             .padding(top = 20.dp, start = 30.dp, end = 20.dp)
+            //navigate to the productScreen when clicked, and pass the query parameter productId value
+            .clickable { navController.navigate("product/$productId") }
         ,
 
 
@@ -352,8 +358,9 @@ fun ProductOnCategorySectionTemplate(productsOnCategory: ProductsOnCategoryModel
 }
 
 @Composable
-fun ProductSectionTemplate(allProductsModel: AllProductsModel, homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
+fun ProductSectionTemplate(allProductsModel: AllProductsModel, homeScreenViewModel: HomeScreenViewModel = hiltViewModel(), navController: NavController){
 
+    val productId = allProductsModel.productId
     //Create a variable to hold the price of our product
     val price = allProductsModel.price
 
@@ -381,6 +388,8 @@ fun ProductSectionTemplate(allProductsModel: AllProductsModel, homeScreenViewMod
             .background(MaterialTheme.colorScheme.background)
             .fillMaxWidth()
             .padding(top = 20.dp, start = 30.dp, end = 20.dp)
+            //navigate to the productScreen when clicked, and pass the query parameter productId value
+            .clickable { navController.navigate("product/$productId") }
         ,
 
 
@@ -438,7 +447,7 @@ fun ProductSectionTemplate(allProductsModel: AllProductsModel, homeScreenViewMod
     }
 }
 @Composable
-fun MainSection(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
+fun MainSection(homeScreenViewModel: HomeScreenViewModel = hiltViewModel(), navController: NavController){
 
     //The value of the homScreenViewModel variable is obtained by calling the viewModel function,
     // which is a composable function that provides a ViewModel instance scoped to the current navigation destination or the current composable hierarchy
@@ -519,7 +528,7 @@ fun MainSection(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
         //The parameter allproduct is the current product item, and the type All ProductsModel is a data class that represents the properties of a product,
         items(electronicsProductsTrimmed){productsBasedOnCategory: ProductsOnCategoryModel ->
 
-            ProductOnCategorySectionTemplate(productsOnCategory = productsBasedOnCategory)
+            ProductOnCategorySectionTemplate(productsOnCategory = productsBasedOnCategory, navController = navController)
 
         }
 
@@ -544,7 +553,7 @@ fun MainSection(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
         //The parameter allproduct is the current product item, and the type All ProductsModel is a data class that represents the properties of a product,
         items(clothingProductsTrimmed){productsBasedOnCategory: ProductsOnCategoryModel ->
 
-            ProductOnCategorySectionTemplate(productsOnCategory = productsBasedOnCategory)
+            ProductOnCategorySectionTemplate(productsOnCategory = productsBasedOnCategory, navController = navController)
 
         }
 
@@ -569,7 +578,7 @@ fun MainSection(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
         //The parameter allproduct is the current product item, and the type All ProductsModel is a data class that represents the properties of a product,
         items(jewelryProductsTrimmed){productsBasedOnCategory: ProductsOnCategoryModel ->
 
-            ProductOnCategorySectionTemplate(productsOnCategory = productsBasedOnCategory)
+            ProductOnCategorySectionTemplate(productsOnCategory = productsBasedOnCategory, navController = navController)
 
         }
 
@@ -595,7 +604,7 @@ fun MainSection(homeScreenViewModel: HomeScreenViewModel = hiltViewModel()){
         //The parameter allproduct is the current product item, and the type All ProductsModel is a data class that represents the properties of a product,
         items(allproducts){allproduct: AllProductsModel ->
 
-            ProductSectionTemplate(allProductsModel = allproduct)
+            ProductSectionTemplate(allProductsModel = allproduct, navController = navController)
 
         }
     }
@@ -620,7 +629,7 @@ fun ViewAllButton(){
                 )
                 .background(color = MaterialTheme.colorScheme.background),
                 contentAlignment = Alignment.Center){
-                Text(text = "View All", color = MaterialTheme.colorScheme.onBackground, textAlign = TextAlign.Center)
+                Text(text = "View All", color = MaterialTheme.colorScheme.onBackground, textAlign = TextAlign.Center, fontSize = 18.sp, fontWeight = FontWeight.Bold)
             }
         }
     }

@@ -70,6 +70,8 @@ class MainActivity : ComponentActivity() {
                         composable(NavItem.MainScreen.route){
                             MainScreen()
                         }
+
+
                     }
 
                 }

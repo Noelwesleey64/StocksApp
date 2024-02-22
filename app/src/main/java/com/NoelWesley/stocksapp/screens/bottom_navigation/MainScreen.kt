@@ -16,14 +16,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.NoelWesley.stocksapp.screens.account_screen.ui.AccountScreen
 import com.NoelWesley.stocksapp.screens.cart_screen.CartScreen
 import com.NoelWesley.stocksapp.screens.home_screen.ui.HomeScreen
+import com.NoelWesley.stocksapp.screens.product_screen.ui.ProductSCreen
 import com.NoelWesley.stocksapp.screens.search_screen.SearchScreen
+import com.NoelWesley.stocksapp.util.NavItem
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -63,7 +67,7 @@ fun MainScreen() {
 
             //Adding destinations to the navHost based on the values of route in the SealedObjects
             composable(NavigationItem.Home.route){
-                HomeScreen()
+                HomeScreen(navController = navController)
             }
 
             composable(NavigationItem.Search.route){
@@ -76,6 +80,25 @@ fun MainScreen() {
 
             composable(NavigationItem.Account.route){
                 AccountScreen()
+            }
+            composable(
+                // Define the route with expected query parameters.
+                route = NavItem.ProductScreen.route,
+                // List of arguments that the route expects.
+                arguments = listOf(
+
+                    // Define an argument 'productId' which is of type Int.
+                    navArgument(name = "productId"){
+                        // Set the argument type to int.
+                    type = NavType.IntType
+                        //Set default value
+                        defaultValue  = 0
+
+                }
+                )
+            ){ backstackEntry ->
+                // Retrieve the 'productId' argument from the back stack entry arguments, defaulting to 0 if not found.
+                backstackEntry.arguments?.getInt("productId")?.let { ProductSCreen(productId = it) }
             }
         }
     }

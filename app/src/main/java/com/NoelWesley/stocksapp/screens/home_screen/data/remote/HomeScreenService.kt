@@ -51,11 +51,15 @@ class HomeScreenService @Inject constructor(private val homeScreenApi: HomeScree
         }
     }
 
+    // Define a suspending function named 'getProductImage' that takes a 'productId' of type Long and returns a 'ProductImageModel'
     suspend fun getProductImage(productId: Long): ProductImageModel{
 
+        // 'withContext' is a coroutine builder that switches the context of the coroutine to the IO dispatcher, which is optimized for I/O operations
         return withContext(Dispatchers.IO){
+            // Call 'getProductImage' from 'homeScreenApi' with the given 'productId', and store the result in the 'image' variable
             val image = homeScreenApi.getProductImage(productId)
 
+            // Return the body of the 'image' if it's not null; otherwise, return a default 'ProductImageModel' with empty strings and 0 for the integer value
             image.body()?: ProductImageModel("", "", "", "", 0)
         }
 
